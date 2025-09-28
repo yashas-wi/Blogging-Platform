@@ -1,5 +1,6 @@
 package com.practice.bloggingplatform.service;
-import com.practice.bloggingplatform.entity.Blogging;
+import com.practice.bloggingplatform.dto.BlogDto;
+import com.practice.bloggingplatform.entity.Blog;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -9,30 +10,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class BloggingService {
-    private final List<Blogging> blogList;
+    private final List<Blog> blogList;
+    private final AtomicInteger id =  new AtomicInteger(0);
     public BloggingService()
     {
         this.blogList = new ArrayList<>();
     }
 
-    public String saveBlog(Blogging blogging){
-//         AtomicInteger id;
-//        id.incrementAndGet(); // safely increments
-//        id.addAndGet(5);
-        blogList.add(blogging);
+    public String saveBlog(BlogDto blogDto){
+
+        blogList.add(new Blog(id.incrementAndGet(), blogDto.title(), blogDto.content(), blogDto.category()));
         return "Blog has been saved successfully!";
     }
 
-    public List<Blogging> getAllBlogging(){
+    public List<Blog> getAllBlogging(){
         return blogList;
     }
 
     public String updateBlog(int id,String title,String content){
-        for(Blogging blogging : blogList){
-            if(blogging.getId() == id){
-                blogging.setTitle(title);
-                blogging.setContent(content);
-                blogging.setUpdatedAt(LocalDateTime.now());
+        for(Blog blog : blogList){
+            if(blog.getId() == id){
+                blog.setTitle(title);
+                blog.setContent(content);
+                blog.setUpdatedAt(LocalDateTime.now());
                 return "Blog has been updated successfully!";
             }
         }throw new IllegalArgumentException("Invalid ID, Try again!");
@@ -40,9 +40,9 @@ public class BloggingService {
 
 
     public String deleteBlog(int id){
-        for(Blogging blogging : blogList){
-            if(blogging.getId() == id){
-                blogList.remove(blogging);
+        for(Blog blog : blogList){
+            if(blog.getId() == id){
+                blogList.remove(blog);
                 return "Blog has been deleted successfully!";
             }
         }

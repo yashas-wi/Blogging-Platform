@@ -2,7 +2,7 @@ package com.practice.bloggingplatform.entity;
 
 import java.time.LocalDateTime;
 
-public class Blogging {
+public class Blog {
     private int id;
     private String title;
     private String content;
@@ -44,7 +44,7 @@ public class Blogging {
         this.updatedAt = UpdatedAt;
     }
 
-    public Blogging(int id, String title, String content, String category) {
+    public Blog(int id, String title, String content, String category) {
         this.id = id;
         this.title = title;
         this.content = content;
