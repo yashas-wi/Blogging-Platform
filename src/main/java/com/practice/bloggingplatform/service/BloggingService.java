@@ -49,11 +49,12 @@ public class BloggingService {
         throw new IllegalArgumentException("Incorrect ID.");
     }
 
-//    public String getOneBlog(int id){
-//        for(Blogging blogging : blogList){
-//            if(blogging.getId() == id){
-//
-//            }
-//        }
-//    }
+    public Blogging getOneBlog(int id){
+        for(Blogging blogging : blogList){
+            if(blogging.getId() == id){
+              return blogging;
+            }
+        }
+        throw new IllegalArgumentException("Incorrect ID, Try once again!");
+    }
 }

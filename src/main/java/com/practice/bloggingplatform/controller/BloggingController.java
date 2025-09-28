@@ -5,12 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class BloggingController {
     private final BloggingService bloggingService;
-    AtomicInteger id = new AtomicInteger(0);
     public BloggingController(BloggingService bloggingService) {
         this.bloggingService = bloggingService;
     }
@@ -55,13 +53,13 @@ public class BloggingController {
         }
     }
 
-//    @GetMapping("getOneBlog")
-//    public ResponseEntity<String> getOneBlog(@RequestParam int id) {
-//        try{
-//            String response = bloggingService.getOneBlog(id);
-//            return ResponseEntity.ok(response);
-//        }catch(Exception e){
-//            return ResponseEntity.badRequest().build();
-//        }
-//    }
+    @GetMapping("getOneBlog")
+    public ResponseEntity<Blogging> getOneBlog(@RequestParam int id) {
+        try{
+            Blogging response = bloggingService.getOneBlog(id);
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
